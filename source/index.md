@@ -4,6 +4,7 @@ title: API Reference
 language_tabs:
   - shell
   - javascript
+  - java
 
 toc_footers:
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -197,13 +198,28 @@ id | Store ID
 ```javascript
 //todo
 ```
-TODO
+
+This endpoint is used to send a push notification to the customer indicating that their order is ready at a specific counter or location.
+
+### HTTP Request
+
+`POST $HOST/cnp/customer/{cid}/notify`
+
+### Post Parameters
+
+Parameter | Values | Description
+--------- | ----------- | -----------
+message | (String) | String indicating special message to display to customer
+location | (String) | String indicating location of pickup
 
 # Customers
 
-## Pre-checkin
+## Status Update
 
-This endpoint announces the customer's intent to visit the store.
+This endpoint is used to both:
+
+* announce the customer's intent to visit the store
+* report GPS or geofence location data from client apps
 
 ### HTTP Request
 
@@ -211,9 +227,13 @@ This endpoint announces the customer's intent to visit the store.
 
 ### Post Parameters
 
-Parameter | Description
---------- | -----------
-precheckin | 
+Parameter | Values | Description
+--------- | ----------- | -----------
+status | 'pre','checkin','picked',null | String indicating status of customer
+lat | (Float) | Latitude
+long | (Float) | Longitude
+isGeofence | (Boolean) | Boolean indicating if location data is from geofence
+
 
 ### Header Parameters
 
@@ -221,11 +241,3 @@ Parameter | Default | Description
 --------- | ------- | -----------
 wm.? | null | Authentication cookie
 
-
-## Location Update
-
-This endpoint reports GPS or geofence location data from clients.
-
-### HTTP Request
-
-`POST $HOST/cnp/customer/status`
