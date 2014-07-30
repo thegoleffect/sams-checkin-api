@@ -58,8 +58,59 @@
 </span></pre>
 
 <p>TODO</p>
-<h1 id='store-orders'>Store Orders</h1><h2 id='get-all-orders-by-store'>Get All Orders By Store</h1><pre class="highlight shell"><span class="c"># ohai</span>
-curl https://api.samsclub.com/cnp/
+<h1 id='orders'>Orders</h1><h2 id='list-customer-ids-with-open-orders'>List Customer IDs with Open Orders</h1><pre class="highlight javascript"><span class="cp">#!/usr/bin/env node
+</span><span class="kd">var</span> <span class="nx">Request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="p">{</span>
+
+<span class="p">};</span>
+<span class="nx">Request</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
+
+<span class="p">});</span>
+</pre>
+<pre class="highlight shell">curl <span class="nv">$HOST</span>/cnp/stores/<span class="o">{</span>id<span class="o">}</span>/customers<span class="sb">`</span>
+</pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"0001"</span><span class="p">:</span><span class="w"> </span><span class="mi">1406738014324</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0002"</span><span class="p">:</span><span class="w"> </span><span class="mi">1406738014324</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre>
+
+<p>This endpoint retrieves a list of customers with open orders at a given store. The response will include a JSON object with customer ID as keys and timestamps as values. The timestamps represent when the order was uploaded to our system.</p>
+<h3 id='http-request'>HTTP Request</h1>
+<p><code class="prettyprint">GET $HOST/cnp/stores/{id}/customers</code></p>
+<h3 id='url-parameters'>URL Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Store ID</td>
+</tr>
+</tbody></table>
+<h3 id='response-parameters'>Response Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>JSON hash customer-ids to created timestamps (or error message if statusCode is not 200)</td>
+</tr>
+</tbody></table>
+<h2 id='upload-customer-ids-by-store'>Upload Customer IDs by Store</h1><pre class="highlight shell">curl -X POST <span class="nv">$HOST</span>/cnp/stores/<span class="o">{</span>id<span class="o">}</span>/orders <span class="se">\</span>
+    -d <span class="s2">"cids[]=001&amp;cids[]=002"</span>
 </pre>
 <pre class="highlight javascript"><span class="kd">var</span> <span class="nx">Request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
 
@@ -70,13 +121,13 @@ curl https://api.samsclub.com/cnp/
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></pre>
 
-<p>This endpoint retrieves all the orders for a given store.</p>
+<p>This endpoint is used by Stores to upload their list of customer IDs with open orders.</p>
 <h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET https://internal-api.samsclub.com/cnp/stores/{id}/orders</code></p>
+<p><code class="prettyprint">POST $HOST/cnp/stores/{id}/customers</code></p>
 <h3 id='url-parameters'>URL Parameters</h1>
 <table><thead>
 <tr>
@@ -89,31 +140,7 @@ curl https://api.samsclub.com/cnp/
 <td>Store ID</td>
 </tr>
 </tbody></table>
-<h2 id='get-a-specific-order'>Get a Specific Order</h1><pre class="highlight javascript"><span class="cp">#!/usr/bin/env node
-</span><span class="kd">var</span> <span class="nx">Request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="p">{</span>
-
-<span class="p">};</span>
-<span class="nx">Request</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">body</span><span class="p">){</span>
-
-<span class="p">});</span>
-</pre>
-<pre class="highlight shell">curl https://api.samsclub.com/cnp/stores/<span class="o">{</span>id<span class="o">}</span>/orders<span class="sb">`</span>
-</pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></pre>
-
-<p>This endpoint retrieves a specific order.</p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET https://internal-api.samsclub.com/cnp/stores/{id}/orders/{oid}</code></p>
-<h3 id='url-parameters'>URL Parameters</h1>
+<h3 id='post-parameters'>POST Parameters</h1>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -121,28 +148,71 @@ curl https://api.samsclub.com/cnp/
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td>Store ID</td>
-</tr>
-<tr>
-<td>oid</td>
-<td>Order ID</td>
+<td>cids</td>
+<td>Array of customer ids</td>
 </tr>
 </tbody></table>
-<h1 id='order-status'>Order Status</h1><h2 id='update-order-status'>Update Order Status</h1><pre class="highlight shell"><span class="c"># todo</span>
+<h1 id='status-change'>Status Change</h1><h2 id='update-order-status'>Update Order Status</h1><pre class="highlight shell">curl -X POST <span class="nv">$HOST</span>/cnp/stores/<span class="o">{</span>id<span class="o">}</span>/customers/<span class="o">{</span>cid<span class="o">}</span> <span class="se">\</span>
+    -d <span class="s2">"status=picked"</span>
 </pre>
 <pre class="highlight javascript"><span class="c1">//todo
 </span></pre>
 
-<p>TODO</p>
-<h2 id='listen-for-status-updates'>Listen for Status Updates</h1>
+<p>This endpoint is used by Stores to update the order status of a single customer (picked up). </p>
+<h3 id='http-request'>HTTP Request</h1>
+<p><code class="prettyprint">POST $HOST/cnp/stores/{id}/customers/{cid}</code></p>
+<h3 id='url-parameters'>URL Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Store ID</td>
+</tr>
+<tr>
+<td>cid</td>
+<td>Customer ID</td>
+</tr>
+</tbody></table>
+<h3 id='post-parameters'>POST Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>&lsquo;picked&rsquo;,&lsquo;noshow&rsquo;</td>
+<td>String to indicate order status.</td>
+</tr>
+</tbody></table>
+<h2 id='listen-for-status-changes'>Listen for Status Changes</h1>
 <p>This is a long-poll capable endpoint.</p>
 <pre class="highlight shell"><span class="c"># todo</span>
 </pre>
 <pre class="highlight javascript">
 </pre>
 
-<p>TODO</p>
+<p>This endpoint is used by Stores to listen for customer ETA updates. </p>
+<h3 id='http-request'>HTTP Request</h1>
+<p><code class="prettyprint">GET $HOST/cnp/stores/{id}</code></p>
+<h3 id='url-parameters'>URL Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Store ID</td>
+</tr>
+</tbody></table>
 <h1 id='notifications'>Notifications</h1><h2 id='send-order-ready'>Send Order Ready</h1><pre class="highlight shell"><span class="c"># todo</span>
 </pre>
 <pre class="highlight javascript"><span class="c1">//todo
@@ -152,7 +222,19 @@ curl https://api.samsclub.com/cnp/
 <h1 id='customers'>Customers</h1><h2 id='pre-checkin'>Pre-checkin</h1>
 <p>This endpoint announces the customer&rsquo;s intent to visit the store.</p>
 <h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">POST https://api.samsclub.com/cnp/customer/status</code></p>
+<p><code class="prettyprint">POST $HOST/cnp/customer/status</code></p>
+<h3 id='post-parameters'>Post Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>precheckin</td>
+<td></td>
+</tr>
+</tbody></table>
 <h3 id='header-parameters'>Header Parameters</h1>
 <table><thead>
 <tr>
@@ -169,6 +251,8 @@ curl https://api.samsclub.com/cnp/
 </tbody></table>
 <h2 id='location-update'>Location Update</h1>
 <p>This endpoint reports GPS or geofence location data from clients.</p>
+<h3 id='http-request'>HTTP Request</h1>
+<p><code class="prettyprint">POST $HOST/cnp/customer/status</code></p>
 
       </div>
       <div class="dark-box">
