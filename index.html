@@ -48,17 +48,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Sam&rsquo;s Club Checkin API documentation. This is a <strong>draft</strong>.</p>
 
-<p>This API will be accessed by in-store Kiosks.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight shell"><span class="c"># TODO</span>
-</pre>
-<pre class="highlight javascript"><span class="c1">// TODO
-</span></pre>
-
-<p>TODO</p>
+<p>The majority of this API will be accessed by in-store Kiosks via private intranet. The API listed under &ldquo;Customer&rdquo; is accessible from the public internet (and thus requires stricter authentication)</p>
 <h1 id='orders'>Orders</h1><h2 id='list-customer-ids-with-open-orders'>List Customer IDs with Open Orders</h1><pre class="highlight javascript"><span class="cp">#!/usr/bin/env node
 </span><span class="kd">var</span> <span class="nx">Request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
 
@@ -241,7 +231,17 @@
 <td>String indicating location of pickup</td>
 </tr>
 </tbody></table>
-<h1 id='customers'>Customers</h1><h2 id='status-update'>Status Update</h1>
+<h1 id='customers'>Customers</h1><h2 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight shell"><span class="c"># TODO</span>
+</pre>
+<pre class="highlight javascript"><span class="c1">// TODO
+</span></pre>
+
+<p>TODO</p>
+<h2 id='status-update'>Status Update</h1>
 <p>This endpoint is used to both:</p>
 
 <ul>
