@@ -45,10 +45,20 @@ curl $HOST/cnp/stores/{id}/customers`
 
 ```json
 {
+    "status": 200,
     "data": {
         "0001": 1406738014324,
         "0002": 1406738014324
     }
+}
+```
+
+> On error, the above command returns with status code 500 and JSON structured like this:
+
+```json
+{
+    "status": 500,
+    "data": "Error message goes here"
 }
 ```
 
@@ -67,9 +77,18 @@ id | Store ID
 
 ### Response Parameters
 
-Parameter | Description
---------- | -----------
-data | JSON hash customer-ids to created timestamps (or error message if statusCode is not 200)
+Parameter | Type | Description
+--------- | ----------- | -----------
+status | String | Status Code (used to differentiate Sam's specific error codes)
+data | Dynamic | JSON hash customer-ids to created timestamps (or error message if statusCode is not 200)
+
+### Status Codes
+
+Code | Description
+----------- | -----------
+200 | Success
+500 | General Error
+10010 | Custom Error
 
 
 ## Upload Customer IDs by Store
