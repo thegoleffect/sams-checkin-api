@@ -14,7 +14,7 @@ search: true
 
 # Introduction
 
-Welcome to the Sam's Club Checkin API documentation. This is a **draft**.
+Welcome to the Sam's Club Checkin API documentation. This is a Work-in-Progress **draft**.
 
 The majority of this API will be accessed by in-store Kiosks via private intranet. The API listed under "Customer" is accessible from the public internet (and thus requires stricter authentication)
 
