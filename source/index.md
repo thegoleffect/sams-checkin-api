@@ -16,21 +16,8 @@ search: true
 
 Welcome to the Sam's Club Checkin API documentation. This is a **draft**.
 
-This API will be accessed by in-store Kiosks.
+The majority of this API will be accessed by in-store Kiosks via private intranet. The API listed under "Customer" is accessible from the public internet (and thus requires stricter authentication)
 
-# Authentication
-
-> To authorize, use this code:
-
-```shell
-# TODO
-```
-
-```javascript
-// TODO
-```
-
-TODO
 
 
 # Orders
@@ -213,6 +200,20 @@ message | (String) | String indicating special message to display to customer
 location | (String) | String indicating location of pickup
 
 # Customers
+
+## Authentication
+
+> To authorize, use this code:
+
+```shell
+# TODO
+```
+
+```javascript
+// TODO
+```
+
+TODO
 
 ## Status Update
 
