@@ -234,7 +234,7 @@ location | (String) | String indicating location of pickup
 
 TODO
 
-## Status Update
+## Update Status
 
 This endpoint is used to both:
 
