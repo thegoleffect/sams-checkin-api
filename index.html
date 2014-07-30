@@ -66,10 +66,20 @@
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"0001"</span><span class="p">:</span><span class="w"> </span><span class="mi">1406738014324</span><span class="p">,</span><span class="w">
         </span><span class="s2">"0002"</span><span class="p">:</span><span class="w"> </span><span class="mi">1406738014324</span><span class="w">
     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre>
+
+<blockquote>
+<p>On error, the above command returns with status code 500 and JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Error message goes here"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></pre>
 
@@ -92,12 +102,39 @@
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>status</td>
+<td>String</td>
+<td>Status Code (used to differentiate Sam&rsquo;s specific error codes)</td>
+</tr>
+<tr>
 <td>data</td>
+<td>Dynamic</td>
 <td>JSON hash customer-ids to created timestamps (or error message if statusCode is not 200)</td>
+</tr>
+</tbody></table>
+<h3 id='status-codes'>Status Codes</h1>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>500</td>
+<td>General Error</td>
+</tr>
+<tr>
+<td>10010</td>
+<td>Custom Error</td>
 </tr>
 </tbody></table>
 <h2 id='upload-customer-ids-by-store'>Upload Customer IDs by Store</h1><pre class="highlight shell">curl -X POST <span class="nv">$HOST</span>/cnp/stores/<span class="o">{</span>id<span class="o">}</span>/orders <span class="se">\</span>
