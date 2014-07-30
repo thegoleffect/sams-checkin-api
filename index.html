@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","javascript"]);
+          setupLanguages(["shell","javascript","java"]);
         });
       </script>
   </head>
@@ -30,6 +30,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="java">java</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -218,21 +219,64 @@
 <pre class="highlight javascript"><span class="c1">//todo
 </span></pre>
 
-<p>TODO</p>
-<h1 id='customers'>Customers</h1><h2 id='pre-checkin'>Pre-checkin</h1>
-<p>This endpoint announces the customer&rsquo;s intent to visit the store.</p>
+<p>This endpoint is used to send a push notification to the customer indicating that their order is ready at a specific counter or location.</p>
+<h3 id='http-request'>HTTP Request</h1>
+<p><code class="prettyprint">POST $HOST/cnp/customer/{cid}/notify</code></p>
+<h3 id='post-parameters'>Post Parameters</h1>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td>(String)</td>
+<td>String indicating special message to display to customer</td>
+</tr>
+<tr>
+<td>location</td>
+<td>(String)</td>
+<td>String indicating location of pickup</td>
+</tr>
+</tbody></table>
+<h1 id='customers'>Customers</h1><h2 id='status-update'>Status Update</h1>
+<p>This endpoint is used to both:</p>
+
+<ul>
+<li>announce the customer&rsquo;s intent to visit the store</li>
+<li>report GPS or geofence location data from client apps</li>
+</ul>
 <h3 id='http-request'>HTTP Request</h1>
 <p><code class="prettyprint">POST $HOST/cnp/customer/status</code></p>
 <h3 id='post-parameters'>Post Parameters</h1>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Values</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>precheckin</td>
-<td></td>
+<td>status</td>
+<td>&lsquo;pre&rsquo;,&lsquo;checkin&rsquo;,&lsquo;picked&rsquo;,null</td>
+<td>String indicating status of customer</td>
+</tr>
+<tr>
+<td>lat</td>
+<td>(Float)</td>
+<td>Latitude</td>
+</tr>
+<tr>
+<td>long</td>
+<td>(Float)</td>
+<td>Longitude</td>
+</tr>
+<tr>
+<td>isGeofence</td>
+<td>(Boolean)</td>
+<td>Boolean indicating if location data is from geofence</td>
 </tr>
 </tbody></table>
 <h3 id='header-parameters'>Header Parameters</h1>
@@ -249,16 +293,13 @@
 <td>Authentication cookie</td>
 </tr>
 </tbody></table>
-<h2 id='location-update'>Location Update</h1>
-<p>This endpoint reports GPS or geofence location data from clients.</p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">POST $HOST/cnp/customer/status</code></p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="java">java</a>
           </div>
       </div>
     </div>
