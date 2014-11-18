@@ -139,6 +139,7 @@ cids | Array of customer ids
 
 ## Update Order Status
 
+
 ```shell
 curl -X POST $HOST/cnp/stores/{id}/customers/{cid} \
     -d "status=picked"
